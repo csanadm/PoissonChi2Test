@@ -26,8 +26,13 @@ $\chi^2_i = \frac{(|O_{i}-E_{i}|-0.5)^{2}}{E_{i}}$
 (where the numerator is zero if $|O_{i}-E_{i}|<0.5$)
 
 ## Nagy, Csanád, et al.
-Finally, one can investigate which Gaussian distribution is closest to a given Poisson distribution with parameter $\lambda$. It turns out, that this is the Gaussian with a variance shifted by 1/2, and one can include this in the chisquare definition:
+In addition, one can investigate which Gaussian distribution is closest to a given Poisson distribution with parameter $\lambda$. It turns out, that this is the Gaussian with a variance shifted by 1/2, and one can include this in the chisquare definition:
 $\chi^2_i = \frac{(O_{i}-E_{i})^{2}}{O_{i}+0.5}$
+
+## Log likelihood
+Finally, to remedy the problems associated with assuming a Gaussian uncertainty distribution, log likelihood optimization can be utilized. In this case, one defines chisquare as:
+$\chi^2_i = 2\left[ E_{i} - O_{i} + O_{i} \log(O_{i}/E_{i}) \right]$
+
 
 ## Testing the $\chi^2$ options
 
