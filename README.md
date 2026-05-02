@@ -39,7 +39,7 @@ $\chi^2_i = 2\left[ E_{i} - O_{i} + O_{i} \log(O_{i}/E_{i}) \right]$
 In the attached code [**poisson_vs_gauss_test.C**](https://github.com/csanadm/PoissonChi2Test/blob/main/poisson_vs_gauss_test.C) we create a histogram with $N_{\rm bins}=400 000$ bins, and then fill it with $N_{\rm hits}$ uniformly distributed random values. In principle, if $\lambda = $N_{\rm hits}/N_{\rm bins}$, then we expect $\lambda$ hits in every bin. Furthermore, if we fit the resulting histogram with a constant, based on one of the $\chi^2$ definitions, then the fitted parameter should also be $\lambda$, within uncertainties. Finally, the $\chi^2$ should be roughly equal to $N_{\rm bins}$, and the p-value (probability, confidence level, C.L.) should have an expectation value of 50%, but certainly above 0.1% in 99.9% of the cases. We test these hypotheses below.
 
 ### Summary table 
-Values for a 400k bin histogram, filled with uniformly distributed random values, ordered by decreasing $\chi^2$. The C.L. is calculated based on the number of degrees of freedom (NDF) being 399999 (400k bins minus one fitted parameter)
+Values for a 400k bin histogram, filled with uniformly distributed random values. The C.L. is calculated based on the number of degrees of freedom (NDF) being 399999 (400k bins minus one fitted parameter)
 
 |	Case	|	Total Hits	|	Expected Value	|	Fitted Value	|	$\chi^2$	|	$\chi^2$/NDF	|	Prob (C.L.)	|
 |	-------------	|	-------------	|	-------------	|	-------------	|	-------------	|	-------------	|	-------------	|
@@ -58,7 +58,6 @@ Values for a 400k bin histogram, filled with uniformly distributed random values
 |	Yates	|	40M	|	100	|	99.00±0.02	|	372521.66	|	0.9313	|	100%	|
 |		|	80M	|	200	|	199.00±0.02	|	380866.03	|	0.9522	|	100%	|
 |		|	160M	|	400	|	399.00±0.03	|	386072.57	|	0.9652	|	100%	|
-|	-------------	|	-------------	|	-------------	|	-------------	|	-------------	|	-------------	|	-------------	|
 |	Likelihood	|	40M	|	100	|	100.00±0.02	|	400405.99	|	1.0010	|	32.4%	|
 |		|	80M	|	200	|	200.00±0.02	|	401284.44	|	1.0032	|	7.5%	|
 |		|	160M	|	400	|	400.00±0.03	|	400956.03	|	1.0024	|	14.2%	|
