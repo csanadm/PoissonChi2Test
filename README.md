@@ -1,5 +1,9 @@
 # Poisson $\chi^2$ test
-Testing Poisson uncertainties and $\chi^2$ definitions
+Testing Poisson uncertainties and $\chi^2$ definitions. In the below formulas,
+- $\chi^2_i$ is the chisquare for one bin,
+- $O_i$ is the observed count in the bin,
+- its variance is also $O_i$ in a Poisson case,
+- $E_i$ is the expected (theoretical) value, coming from the fit.
 
 ## Default
 
@@ -8,16 +12,16 @@ $\chi^2_i = \frac{(O_{i}-E_{i})^{2}}{O_{i}}$
 ## Yates' Correction
 
 $\chi^2_i = \frac{(|O_{i}-E_{i}|-0.5)^{2}}{O_{i}}$ 
-(where the numerator is zero if $|O_{i}-E|<0.5$)
+(where the numerator is zero if $|O_{i}-E_{i}|<0.5$)
 
 ## Pearson's Chisquare
 
-$\chi^2_i = \frac{(O_{i}-E)^{2}}{E_{i}}$
+$\chi^2_i = \frac{(O_{i}-E_{i})^{2}}{E_{i}}$
 
 ## Yates & Pearson
 
-$\chi^2_i = \frac{(|O_{i}-E_{i}|-0.5)^{2}}{E}$
-(where the numerator is zero if $|O_{i}-E|<0.5$)
+$\chi^2_i = \frac{(|O_{i}-E_{i}|-0.5)^{2}}{E_{i}}$
+(where the numerator is zero if $|O_{i}-E_{i}|<0.5$)
 
 ## Nagy, Csanád, et al.
 
