@@ -30,7 +30,7 @@ $\chi^2_i = \frac{(O_{i}-E_{i})^{2}}{O_{i}+0.5}$
 ## Plots
 
 ### Summary table 
-Values for a 400k bin histogram, filled with uniformly distributed random values, ordered by decreasing $\chi^2$
+Values for a 400k bin histogram, filled with uniformly distributed random values, ordered by decreasing $\chi^2$. The p-value (probability, confidence level, C.L.) is calculated based on the number of degrees of freedom (NDF) being 399999 (400k bins minus one fitted parameter)
 
 |	Case	|	Total Hits	|	Expected Value	|	Fitted Value	|	$\chi^2$	|	$\chi^2$/NDF	|	Prob (C.L.)	|
 |	-------------	|	-------------	|	-------------	|	-------------	|	-------------	|	-------------	|	-------------	|
