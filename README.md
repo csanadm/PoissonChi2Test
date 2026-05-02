@@ -1,31 +1,32 @@
 # Poisson $\chi^2$ test
 Testing Poisson uncertainties and $\chi^2$ definitions. In the below formulas,
-- $\chi^2_i$ is the chisquare for one bin,
-- $O_i$ is the observed count in the bin,
-- its variance is also $O_i$ in a Poisson case, due to $\Delta O_i = \sqrt{O_i}$ and $\sigma^2_i = (\Delta O_i)^2$,
+- $\chi^2_i$ is the chisquare for the $i$-th bin,
+- $O_i$ is the observed count in the $i$-th bin,
+- $\sigma^2_i = (\Delta O_i)^2 = O_i$ is the variance in the $i$-th (assuming a Poisson distribution)
 - $E_i$ is the expected (theoretical) value, coming from the fit,
 - and an alternative variance estimator (à la Pearson) is then $E_i$
 
 ## Default
-
+The classical $\chi^2$ definition is:
 $\chi^2_i = \frac{(O_{i}-E_{i})^{2}}{O_{i}}$
+This generally results in an underestimation of the bin contents, due to the so-called Neyman bias.
 
 ## Yates' Correction
-
+One can correct for the Neyman bias by subtracting 1/2 from the numerator:
 $\chi^2_i = \frac{(|O_{i}-E_{i}|-0.5)^{2}}{O_{i}}$ 
 (where the numerator is zero if $|O_{i}-E_{i}|<0.5$)
 
 ## Pearson's Chisquare
-
+Alternatively, one can use $E_i$ for the variance, which also removes the Neyman bias:
 $\chi^2_i = \frac{(O_{i}-E_{i})^{2}}{E_{i}}$
 
 ## Yates & Pearson
-
+One can combine the above two:
 $\chi^2_i = \frac{(|O_{i}-E_{i}|-0.5)^{2}}{E_{i}}$
 (where the numerator is zero if $|O_{i}-E_{i}|<0.5$)
 
 ## Nagy, Csanád, et al.
-
+Finally, one can investigate which Gaussian distribution is closest to a given Poisson distribution with parameter $\lambda$. It turns out, that this is the Gaussian with a variance shifted by 1/2, and one can include this in the chisquare definition:
 $\chi^2_i = \frac{(O_{i}-E_{i})^{2}}{O_{i}+0.5}$
 
 ## Plots
