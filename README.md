@@ -7,30 +7,30 @@ Testing Poisson uncertainties and $\chi^2$ definitions. In the below formulas,
 - and an alternative variance estimator (à la Pearson) is then $E_i$
 
 ## Default
-The classical $\chi^2$ definition is:
-$\chi^2_i = \frac{(O_{i}-E_{i})^{2}}{O_{i}}$
+The classical $\chi^2$ definition is:<br>
+$\chi^2_i = \frac{(O_{i}-E_{i})^{2}}{O_{i}}$<br>
 This generally results in an underestimation of the bin contents, due to the so-called Neyman bias.
 
 ## Yates' Correction
-One can correct for the Neyman bias by subtracting 1/2 from the numerator:
-$\chi^2_i = \frac{(|O_{i}-E_{i}|-0.5)^{2}}{O_{i}}$ 
+One can correct for the Neyman bias by subtracting 1/2 from the numerator:<br>
+$\chi^2_i = \frac{(|O_{i}-E_{i}|-0.5)^{2}}{O_{i}}$ <br>
 (where the numerator is zero if $|O_{i}-E_{i}|<0.5$)
 
 ## Pearson's Chisquare
-Alternatively, one can use $E_i$ for the variance, which also removes the Neyman bias:
+Alternatively, one can use $E_i$ for the variance, which also removes the Neyman bias:<br>
 $\chi^2_i = \frac{(O_{i}-E_{i})^{2}}{E_{i}}$
 
 ## Yates & Pearson
-One can combine the above two:
-$\chi^2_i = \frac{(|O_{i}-E_{i}|-0.5)^{2}}{E_{i}}$
+One can combine the above two:<br>
+$\chi^2_i = \frac{(|O_{i}-E_{i}|-0.5)^{2}}{E_{i}}$<br>
 (where the numerator is zero if $|O_{i}-E_{i}|<0.5$)
 
 ## Nagy, Csanád, et al.
-In addition, one can investigate which Gaussian distribution is closest to a given Poisson distribution with parameter $\lambda$. It turns out, that this is the Gaussian with a variance shifted by 1/2, and one can include this in the chisquare definition:
+In addition, one can investigate which Gaussian distribution is closest to a given Poisson distribution with parameter $\lambda$. It turns out, that this is the Gaussian with a variance shifted by 1/2, and one can include this in the chisquare definition:<br>
 $\chi^2_i = \frac{(O_{i}-E_{i})^{2}}{O_{i}+0.5}$
 
 ## Log likelihood
-Finally, to remedy the problems associated with assuming a Gaussian uncertainty distribution, log likelihood optimization can be utilized. In this case, one defines chisquare as:
+Finally, to remedy the problems associated with assuming a Gaussian uncertainty distribution, log likelihood optimization can be utilized. In this case, one defines chisquare as:<br>
 $\chi^2_i = 2\left[ E_{i} - O_{i} + O_{i} \log(O_{i}/E_{i}) \right]$
 
 
