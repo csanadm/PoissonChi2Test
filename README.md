@@ -58,6 +58,11 @@ Values for a 400k bin histogram, filled with uniformly distributed random values
 |	Yates	|	40M	|	100	|	99.00±0.02	|	372521.66	|	0.9313	|	100%	|
 |		|	80M	|	200	|	199.00±0.02	|	380866.03	|	0.9522	|	100%	|
 |		|	160M	|	400	|	399.00±0.03	|	386072.57	|	0.9652	|	100%	|
+|	-------------	|	-------------	|	-------------	|	-------------	|	-------------	|	-------------	|	-------------	|
+|	Likelihood	|	40M	|	100	|	100.00±0.02	|	400405.99	|	1.0010	|	32.4%	|
+|		|	80M	|	200	|	200.00±0.02	|	401284.44	|	1.0032	|	7.5%	|
+|		|	160M	|	400	|	400.00±0.03	|	400956.03	|	1.0024	|	14.2%	|
+
 
 ## Plots
 
@@ -90,6 +95,13 @@ Values for a 400k bin histogram, filled with uniformly distributed random values
 <img height="250" alt="poisson_vs_gauss_test_40M_corr" src="https://github.com/user-attachments/assets/d1757ca3-4d63-427f-9cf5-d8d3fdf4921d" />
 <img height="250" alt="poisson_vs_gauss_test_80M_corr" src="https://github.com/user-attachments/assets/6542f7c5-65fd-4dc0-b83f-0419822dd2ba" />
 <img height="250" alt="poisson_vs_gauss_test_160M_corr" src="https://github.com/user-attachments/assets/6bff0395-5509-45a1-bdbd-7a4560b09729" />
+
+### Likelihood
+
+<img height="250" alt="poisson_vs_gauss_test_40M_LL" src="https://github.com/user-attachments/assets/d29c4876-0e19-4074-9da7-736be39e45e2" />
+<img height="250" alt="poisson_vs_gauss_test_80M_LL" src="https://github.com/user-attachments/assets/ccfe3d7c-6790-4b96-9e2e-602365b62ded" />
+<img height="250" alt="poisson_vs_gauss_test_160M_LL" src="https://github.com/user-attachments/assets/dd137cdf-b72f-498a-a969-a83e31b9bf2b" />
+
 
 
 
