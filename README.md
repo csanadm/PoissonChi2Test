@@ -2,8 +2,9 @@
 Testing Poisson uncertainties and $\chi^2$ definitions. In the below formulas,
 - $\chi^2_i$ is the chisquare for one bin,
 - $O_i$ is the observed count in the bin,
-- its variance is also $O_i$ in a Poisson case,
-- $E_i$ is the expected (theoretical) value, coming from the fit.
+- its variance is also $O_i$ in a Poisson case, due to $\Delta O_i = \sqrt{O_i}$ and $\sigma^2_i = (\Delta O_i)^2$,
+- $E_i$ is the expected (theoretical) value, coming from the fit,
+- and an alternative variance estimator (à la Pearson) is then $E_i$
 
 ## Default
 
