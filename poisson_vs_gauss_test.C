@@ -8,6 +8,18 @@ using namespace std;
 
 TH1D* gHistoToFit = nullptr;
 
+void Likelihood(int &npar, double *gin, double &f, double *par, int iflag)
+{
+  double chi2 = 0;
+  double E = par[0]; // E: expected value
+  for (int i = 1; i <= gHistoToFit->GetNbinsX(); i++)
+	{
+    double O_i = gHistoToFit->GetBinContent(i); // O_i i-th observed value 
+    chi2 += 2*(E - O_i + O_i*log(O_i/E));
+  }
+  f = chi2;
+}
+
 void PearsonFCN(int &npar, double *gin, double &f, double *par, int iflag)
 {
   double chi2 = 0;
@@ -64,10 +76,9 @@ void YatesModFCN(int &npar, double *gin, double &f, double *par, int iflag)
   f = chi2;
 }
 
-void poisson_vs_gauss_test() 
+void poisson_vs_gauss_test(int mean = 100) 
 {
 	const long int Nbins = 4e5;
-	const int mean = 400;
 	const long int Nhits = mean*Nbins;
 	
   TH1D *h = new TH1D("h", "h", Nbins, 0, Nbins);
@@ -202,4 +213,28 @@ void poisson_vs_gauss_test()
   l.DrawLatex(0.15, 0.79, Form("Prob (CL): %.2e", prob));
 
   c1->Print(Form("poisson_vs_gauss_test_%dM_corr.png",(int)(Nhits/1e6)));
+	
+/******** LIKELIHOOD ********/
+
+  gHistoToFit=h;
+  fitter = TVirtualFitter::Fitter(gHistoToFit);
+  fitter->SetFCN(Likelihood);
+  fitter->SetParameter(0, "Constant", 100, 0.1, 0, 0);
+  fitter->ExecuteCommand("MIGRAD", fitarglist, 2);
+  fitter->ExecuteCommand("HESSE", fitarglist, 2);
+	
+	h->SetTitle(Form("Random Uniform Distr., %dM hits, #chi_{i}^{2}=E - O_{i} + O_{i} log(O_{i}/E);Bin Index;Counts",(int)(Nhits/1e6)));
+  h->Draw("E");
+
+  parValue = fitter->GetParameter(0);
+  parError  = fitter->GetParError(0);
+  fitter->GetStats(chi2, edm, errdef, nvpar, nparx);
+  ndf = gHistoToFit->GetNbinsX() - 1;
+  prob = TMath::Prob(chi2,ndf);
+	
+  l.DrawLatex(0.15, 0.87, Form("Parameter: %.2f #pm %.2f", parValue, parError));
+  l.DrawLatex(0.15, 0.83, Form("#chi^{2} / ndf: %.2f / %d", chi2, ndf));
+  l.DrawLatex(0.15, 0.79, Form("Prob (CL): %.2e", prob));
+
+  c1->Print(Form("poisson_vs_gauss_test_%dM_LL.png",(int)(Nhits/1e6)));
 }
