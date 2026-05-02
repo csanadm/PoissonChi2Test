@@ -25,7 +25,8 @@ $\chi^2_i = \frac{(O_{i}-E_{i})^{2}}{O_{i}+0.5}$
 
 ## Plots
 
-### Summary table
+### Summary table 
+Values for a 400k bin histogram, filled with uniformly distributed random values
 
 |	Case	|	Total Hits	|	Expected Value	|	Fitted Value	|	$\chi^2$	|	Prob (CL)	|
 |	-------------	|	-------------	|	-------------	|	-------------	|	-------------	|	-------------	|
