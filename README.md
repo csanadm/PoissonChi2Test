@@ -67,39 +67,39 @@ Values for a 400k bin histogram, filled with uniformly distributed random values
 
 ### Default
 
-<img height="250" alt="poisson_vs_gauss_test_40M" src="https://github.com/user-attachments/assets/40289048-bb72-42ce-aaed-72fedce94eb9" />
-<img height="250" alt="poisson_vs_gauss_test_80M" src="https://github.com/user-attachments/assets/5393ecf4-4f7d-4388-b0c1-b66b160c0eaf" />
-<img height="250" alt="poisson_vs_gauss_test_160M" src="https://github.com/user-attachments/assets/d8aa7ecb-5a9a-4d7a-bfc9-da2cd539efc4" />
+<img height="250" alt="poisson_vs_gauss_test_40M_default" src="https://github.com/user-attachments/assets/7d434414-60d9-475c-b2ac-b98a41210051" />
+<img height="250" alt="poisson_vs_gauss_test_80M_default" src="https://github.com/user-attachments/assets/16f7453e-1153-4d00-86aa-2babaf487adb" />
+<img height="250" alt="poisson_vs_gauss_test_160M_default" src="https://github.com/user-attachments/assets/39bdf653-c126-48ce-a840-e85b4f0a8c8a" />
 
 ### Yates' Correction
 
-<img height="250" alt="poisson_vs_gauss_test_40M_Yates" src="https://github.com/user-attachments/assets/1c95f79f-1135-4d23-93be-5d3785dd6d5e" />
-<img height="250" alt="poisson_vs_gauss_test_80M_Yates" src="https://github.com/user-attachments/assets/f039fd59-e48e-4b17-b953-346764027210" />
-<img height="250" alt="poisson_vs_gauss_test_160M_Yates" src="https://github.com/user-attachments/assets/ce4e11a2-d848-4097-88a5-5aeee89b352f" />
+<img height="250" alt="poisson_vs_gauss_test_40M_Yates" src="https://github.com/user-attachments/assets/b15a6211-0360-420f-b304-64cccd395e88" />
+<img height="250" alt="poisson_vs_gauss_test_80M_Yates" src="https://github.com/user-attachments/assets/54bde82e-904b-4661-8090-d36324d9507a" />
+<img height="250" alt="poisson_vs_gauss_test_160M_Yates" src="https://github.com/user-attachments/assets/fe1cf2df-7355-4455-8087-e40c186973d5" />
 
 ### Pearson's Chisquare
 
-<img height="250" alt="poisson_vs_gauss_test_40M_Pearson" src="https://github.com/user-attachments/assets/1a1b6b22-96d8-4fbb-b13f-9b1f82b89632" />
-<img height="250" alt="poisson_vs_gauss_test_80M_Pearson" src="https://github.com/user-attachments/assets/e0ca88e5-a820-4b22-84b0-bafe263cef9b" />
-<img height="250" alt="poisson_vs_gauss_test_160M_Pearson" src="https://github.com/user-attachments/assets/1772a22f-38a7-48d4-a5e2-2d993b8e6fe7" />
+<img height="250" alt="poisson_vs_gauss_test_40M_Pearson" src="https://github.com/user-attachments/assets/bd6f8fc8-0f87-4721-92c1-197e929d4682" />
+<img height="250" alt="poisson_vs_gauss_test_80M_Pearson" src="https://github.com/user-attachments/assets/969bc044-5b1e-43ec-867c-3bc25b4b1ee1" />
+<img height="250" alt="poisson_vs_gauss_test_160M_Pearson" src="https://github.com/user-attachments/assets/00a20372-c097-470b-8314-799281fb62b4" />
 
 ### Yates & Pearson
 
-<img height="250" alt="poisson_vs_gauss_test_40M_YatesMod" src="https://github.com/user-attachments/assets/9848681f-b7af-4555-9f25-8ff317b844f1" />
-<img height="250" alt="poisson_vs_gauss_test_80M_YatesMod" src="https://github.com/user-attachments/assets/72452c0a-13fc-434e-b118-cba6a1197751" />
-<img height="250" alt="poisson_vs_gauss_test_160M_YatesMod" src="https://github.com/user-attachments/assets/db418faa-bab3-4c01-b1d4-6891fd7fee11" />
+<img height="250" alt="poisson_vs_gauss_test_40M_YatesMod" src="https://github.com/user-attachments/assets/d1cad37b-f00d-42b8-8e96-34356d1fe8dc" />
+<img height="250" alt="poisson_vs_gauss_test_80M_YatesMod" src="https://github.com/user-attachments/assets/4b54df50-c21c-4a91-91cc-ec4063213979" />
+<img height="250" alt="poisson_vs_gauss_test_160M_YatesMod" src="https://github.com/user-attachments/assets/9886a03e-ffca-4392-9505-92189ace05c3" />
 
 ### Nagy, Csanád, et al.
 
-<img height="250" alt="poisson_vs_gauss_test_40M_corr" src="https://github.com/user-attachments/assets/d1757ca3-4d63-427f-9cf5-d8d3fdf4921d" />
-<img height="250" alt="poisson_vs_gauss_test_80M_corr" src="https://github.com/user-attachments/assets/6542f7c5-65fd-4dc0-b83f-0419822dd2ba" />
-<img height="250" alt="poisson_vs_gauss_test_160M_corr" src="https://github.com/user-attachments/assets/6bff0395-5509-45a1-bdbd-7a4560b09729" />
+<img height="250" alt="poisson_vs_gauss_test_40M_corr" src="https://github.com/user-attachments/assets/b9015830-1386-4759-a8a8-8ff7dadcbdf2" />
+<img height="250" alt="poisson_vs_gauss_test_80M_corr" src="https://github.com/user-attachments/assets/2b68e0cd-9093-4eba-9797-a45f2ac7bf9a" />
+<img height="250" alt="poisson_vs_gauss_test_160M_corr" src="https://github.com/user-attachments/assets/172c9c5e-28bc-4263-990a-8f63c0a34de3" />
 
 ### Likelihood
 
-<img height="250" alt="poisson_vs_gauss_test_40M_LL" src="https://github.com/user-attachments/assets/d29c4876-0e19-4074-9da7-736be39e45e2" />
-<img height="250" alt="poisson_vs_gauss_test_80M_LL" src="https://github.com/user-attachments/assets/ccfe3d7c-6790-4b96-9e2e-602365b62ded" />
-<img height="250" alt="poisson_vs_gauss_test_160M_LL" src="https://github.com/user-attachments/assets/dd137cdf-b72f-498a-a969-a83e31b9bf2b" />
+<img height="250" alt="poisson_vs_gauss_test_40M_LL" src="https://github.com/user-attachments/assets/eef8b14e-240a-43a5-941f-f420f3520f66" />
+<img height="250" alt="poisson_vs_gauss_test_80M_LL" src="https://github.com/user-attachments/assets/039a546e-b61d-4c77-9b90-0bc910519063" />
+<img height="250" alt="poisson_vs_gauss_test_160M_LL" src="https://github.com/user-attachments/assets/f98a3569-76ff-4cb2-a3d3-6bdf6661bb95" />
 
 
 
