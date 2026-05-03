@@ -1,5 +1,9 @@
 # Poisson $\chi^2$ test
 
+## File contents
+- [**poisson_vs_gauss_test.C**](https://github.com/csanadm/PoissonChi2Test/blob/main/poisson_vs_gauss_test.C): Fitting a histogram with various $\chi^2$ definitions
+- [**poisson_vs_gauss_test_ratio.C**](https://github.com/csanadm/PoissonChi2Test/blob/main/poisson_vs_gauss_test_ratio.C): Fitting a ratio of histograms with various $\chi^2$ definitions
+
 ## Introduction
 This page shows a test of Poisson uncertainties and $\chi^2$ definitions.
 
@@ -62,6 +66,8 @@ $\chi^2_i = \left[ F_{i}\cdot B_i - A_{i} + A_{i} \log(A_{i}/(F_i\cdot B_{i})) \
 
 In the attached code [**poisson_vs_gauss_test.C**](https://github.com/csanadm/PoissonChi2Test/blob/main/poisson_vs_gauss_test.C) we create a histogram with $N_{\rm bins}=400 000$ bins, and then fill it with $N_{\rm hits}$ uniformly distributed random values. In principle, if $\lambda = $N_{\rm hits}/N_{\rm bins}$, then we expect $\lambda$ hits in every bin. Furthermore, if we fit the resulting histogram with a constant, based on one of the $\chi^2$ definitions, then the fitted parameter should also be $\lambda$, within uncertainties. Finally, the $\chi^2$ should be roughly equal to $N_{\rm bins}$, and the p-value (probability, confidence level, C.L.) should have an expectation value of 50%, but certainly above 0.1% in 99.9% of the cases. We test these hypotheses below.
 
+For the ratio version, a separate [**poisson_vs_gauss_test_ratio.C**](https://github.com/csanadm/PoissonChi2Test/blob/main/poisson_vs_gauss_test_ratio.C) code is written, and the results are analyzed separately. Note that here the expected value is 1.0, as the ratio is of two histograms with the same expected contents.
+
 ### Summary table 
 Values for a 400k bin histogram, filled with uniformly distributed random values. The C.L. is calculated based on the number of degrees of freedom (NDF) being 399999 (400k bins minus one fitted parameter)
 
@@ -110,7 +116,7 @@ The same table for fitting a ratio of histograms:
 |   | 160M | 1.000±0.000 | 400279.85 | 1.0007 | 37.65% |
 
 
-## Plots
+## Plots for histogram fitting
 
 ### Default
 
@@ -147,6 +153,46 @@ The same table for fitting a ratio of histograms:
 <img height="250" alt="poisson_vs_gauss_test_40M_LL" src="https://github.com/user-attachments/assets/eef8b14e-240a-43a5-941f-f420f3520f66" />
 <img height="250" alt="poisson_vs_gauss_test_80M_LL" src="https://github.com/user-attachments/assets/039a546e-b61d-4c77-9b90-0bc910519063" />
 <img height="250" alt="poisson_vs_gauss_test_160M_LL" src="https://github.com/user-attachments/assets/f98a3569-76ff-4cb2-a3d3-6bdf6661bb95" />
+
+
+## Plots for histogram fitting
+
+### Default
+
+<img height="250" alt="poisson_vs_gauss_test_ratio_40M_default" src="https://github.com/user-attachments/assets/2e776280-c2d7-4cbd-8de4-355354845e4d" />
+<img height="250" alt="poisson_vs_gauss_test_ratio_80M_default" src="https://github.com/user-attachments/assets/620fcee2-fbb7-47ac-8307-66903d92c939" />
+<img height="250" alt="poisson_vs_gauss_test_ratio_160M_default" src="https://github.com/user-attachments/assets/d73e4140-512e-4a33-9815-95b44cc97aea" />
+
+### Yates' Correction
+
+<img height="250" alt="poisson_vs_gauss_test_ratio_40M_Yates" src="https://github.com/user-attachments/assets/cf474dfb-cd38-4143-a29a-bbb95022dc7a" />
+<img height="250" alt="poisson_vs_gauss_test_ratio_80M_Yates" src="https://github.com/user-attachments/assets/fe5966b6-645e-421e-9962-cf0b75781aa4" />
+<img height="250" alt="poisson_vs_gauss_test_ratio_160M_Yates" src="https://github.com/user-attachments/assets/d9961248-2369-42e4-8619-242630c6b56c" />
+
+### Pearson's Chisquare
+
+<img height="250" alt="poisson_vs_gauss_test_ratio_40M_Pearson" src="https://github.com/user-attachments/assets/86b3e70d-1ffa-4418-866c-1ca67fd09635" />
+<img height="250" alt="poisson_vs_gauss_test_ratio_80M_Pearson" src="https://github.com/user-attachments/assets/f308ec90-2814-49fb-ace3-3131583a5703" />
+<img height="250" alt="poisson_vs_gauss_test_ratio_160M_Pearson" src="https://github.com/user-attachments/assets/21e34c5c-539f-4498-a372-1f937ac5fcf9" />
+
+### Yates & Pearson
+
+<img height="250" alt="poisson_vs_gauss_test_ratio_40M_YatesMod" src="https://github.com/user-attachments/assets/287b9701-ee03-44d2-baec-b489285e2979" />
+<img height="250" alt="poisson_vs_gauss_test_ratio_80M_YatesMod" src="https://github.com/user-attachments/assets/8f233458-ca88-41da-b82a-ef8bc8e6945c" />
+<img height="250" alt="poisson_vs_gauss_test_ratio_160M_YatesMod" src="https://github.com/user-attachments/assets/4021d020-15cf-44f4-9778-ae012aee155a" />
+
+### Nagy, Csanád, et al.
+
+<img height="250" alt="poisson_vs_gauss_test_ratio_40M_corr" src="https://github.com/user-attachments/assets/f25a7a1b-5b32-48ab-8efe-20c95e5c404b" />
+<img height="250" alt="poisson_vs_gauss_test_ratio_80M_corr" src="https://github.com/user-attachments/assets/24c03ee9-375c-467c-a3d2-259acec3da13" />
+<img height="250" alt="poisson_vs_gauss_test_ratio_160M_corr" src="https://github.com/user-attachments/assets/19336735-9e6b-4958-b642-8d6ef3efc04b" />
+
+### Likelihood
+
+<img height="250" alt="poisson_vs_gauss_test_ratio_40M_LL" src="https://github.com/user-attachments/assets/64d22c25-3348-4816-96ca-cfb1905cf43d" />
+<img height="250" alt="poisson_vs_gauss_test_ratio_80M_LL" src="https://github.com/user-attachments/assets/4b7b031a-d11d-48e1-970d-9f8b1b84d29f" />
+<img height="250" alt="poisson_vs_gauss_test_ratio_160M_LL" src="https://github.com/user-attachments/assets/20235928-64bc-42b3-b835-1f0098cbdc4f" />
+
 
 
 
