@@ -1,35 +1,50 @@
 # Poisson $\chi^2$ test
-Testing Poisson uncertainties and $\chi^2$ definitions. In the below formulas,
+
+## Introduction
+This page shows a test of Poisson uncertainties and $\chi^2$ definitions.
+
+When fitting a histogram with bin contents representing (Poisson distributed) counts:
 - $\chi^2_i$ is the chisquare for the $i$-th bin,
 - $O_i$ is the observed count in the $i$-th bin,
-- $\sigma^2_i = (\Delta O_i)^2 = O_i$ is the variance in the $i$-th (assuming a Poisson distribution)
+- $\sigma^2_i = (\Delta O_i)^2 = O_i$ is the variance in the $i$-th bin (assuming a Poisson distribution)
 - $E_i$ is the expected (theoretical) value, coming from the fit,
 - and an alternative variance estimator (à la Pearson) is then $E_i$
 
-## Default
+When fitting a ratio of (Poisson distributed) histograms:
+- $\chi^2_i$ is the chisquare for the $i$-th bin,
+- $A_i$ and $B_i$ are the counts in the two histograms, while $C_i = A_i/B_i$,
+- $\sigma^2_i = (\Delta C_i)^2 = C_i\cdot(1/A_i + 1/B_i) = A_i\cdot(1+A_i/B_i)$ is the variance in the $i$-th bin
+- $F_i$ is the fitted value of $C_i$, hence $F_i\cdot B_i$ is the expected count, to be compared to $A_i$
+
+## Formulas
+
+### Default
 The classical $\chi^2$ definition is:<br>
 $\chi^2_i = \frac{(O_{i}-E_{i})^{2}}{O_{i}}$<br>
+For fitting a ratio, an equivalent expression is:<br>
+$\chi^2_i = \frac{(A_{i}-F_{i}\cdot B_{i})^{2}}{A_{i}\cdot(1-A_i/B_i)}$<br>
+
 This generally results in an underestimation of the bin contents, due to the so-called Neyman bias.
 
-## Yates' Correction
+### Yates' Correction
 One can correct for the Neyman bias by subtracting 1/2 from the numerator:<br>
 $\chi^2_i = \frac{(|O_{i}-E_{i}|-0.5)^{2}}{O_{i}}$ <br>
 (where the numerator is zero if $|O_{i}-E_{i}|<0.5$)
 
-## Pearson's Chisquare
+### Pearson's Chisquare
 Alternatively, one can use $E_i$ for the variance, which also removes the Neyman bias:<br>
 $\chi^2_i = \frac{(O_{i}-E_{i})^{2}}{E_{i}}$
 
-## Yates & Pearson
+### Yates & Pearson
 One can combine the above two:<br>
 $\chi^2_i = \frac{(|O_{i}-E_{i}|-0.5)^{2}}{E_{i}}$<br>
 (where the numerator is zero if $|O_{i}-E_{i}|<0.5$)
 
-## Nagy, Csanád, et al.
+### Nagy, Csanád, et al.
 In addition, one can investigate which Gaussian distribution is closest to a given Poisson distribution with parameter $\lambda$. It turns out, that this is the Gaussian with a variance shifted by 1/2, and one can include this in the chisquare definition:<br>
 $\chi^2_i = \frac{(O_{i}-E_{i})^{2}}{O_{i}+0.5}$
 
-## Log likelihood
+### Log likelihood
 Finally, to remedy the problems associated with assuming a Gaussian uncertainty distribution, log likelihood optimization can be utilized. In this case, one defines chisquare as:<br>
 $\chi^2_i = 2\left[ E_{i} - O_{i} + O_{i} \log(O_{i}/E_{i}) \right]$
 
