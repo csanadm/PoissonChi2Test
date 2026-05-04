@@ -131,6 +131,12 @@ void ExecuteFit(TH1D* h, void (*fcn)(int&, double*, double&, double*, int),
   
   h->GetXaxis()->SetNdivisions(5, 0, 0);
   h->GetYaxis()->SetNdivisions(404);
+  h->GetXaxis()->SetLabelSize(0.05);
+  h->GetYaxis()->SetLabelSize(0.05);
+  h->GetXaxis()->SetTitleSize(0.055);
+  h->GetYaxis()->SetTitleSize(0.055);
+  h->GetXaxis()->SetTitleOffset(1.0);
+  h->GetYaxis()->SetTitleOffset(0.95);
   
   h->Draw("E");
 
@@ -140,19 +146,20 @@ void ExecuteFit(TH1D* h, void (*fcn)(int&, double*, double&, double*, int),
   fitLine->Draw("same");
 
   
-  TLatex l; l.SetNDC(); l.SetTextSize(0.04);
-  l.DrawLatex(0.15, 0.85, Form("%s", name.c_str()));
-  l.DrawLatex(0.15, 0.77, Form("%s", formula.c_str()));
-  l.DrawLatex(0.15, 0.25, Form("Fitted: %.3f #pm %.3f", val, err));
+  TLatex l; l.SetNDC(); l.SetTextSize(0.055);
+  l.DrawLatex(0.11, 0.85, Form("%s", name.c_str()));
+  l.DrawLatex(0.11, 0.75, Form("%s", formula.c_str()));
+  l.DrawLatex(0.11, 0.30, Form("Mean bin content: %.2f", h->Integral()/h->GetNbinsX()));
+  l.DrawLatex(0.11, 0.25, Form("Fitted: %.3f #pm %.3f", val, err));
   double prob = TMath::Prob(chi2, ndf);
+  l.SetTextSize(0.05);
   if(prob>0.001)
-    l.DrawLatex(0.15, 0.21, Form("#chi^{2}/NDF: %.2f/%d (P-value: %.1f%%)", chi2, ndf, prob*100));
+    l.DrawLatex(0.11, 0.20, Form("#chi^{2}/NDF: %.2f/%d (P-value: %.1f%%)", chi2, ndf, prob*100));
   else
-    l.DrawLatex(0.15, 0.21, Form("#chi^{2}/NDF: %.2f/%d (P-value: %.3e%%)", chi2, ndf, prob*100));
+    l.DrawLatex(0.11, 0.20, Form("#chi^{2}/NDF: %.2f/%d (P-value: %.2e%%)", chi2, ndf, prob*100));
 
-  l.SetTextSize(0.04);
-  l.DrawLatex(0.58, 0.84, Form("N_{hits}: %dM", (int)(h->GetEntries()/1e6)));
-  l.DrawLatex(0.58, 0.78, Form("Mean bin content: %.2f", h->Integral()/h->GetNbinsX()));
+  l.SetTextSize(0.055);
+  l.DrawLatex(0.55, 0.84, Form("N_{hits}: %dM", (int)(h->GetEntries()/1e6)));
   
   c->Print((saveName + ".png").c_str());
   //c->Print((saveName + ".pdf").c_str());

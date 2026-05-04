@@ -139,6 +139,12 @@ void ExecuteFit(TH1D* hA, TH1D* hB, void (*fcn)(int&, double*, double&, double*,
   hC->SetMarkerColor(kAzure + 2);
   hC->GetXaxis()->SetNdivisions(5, 0, 0);
   hC->GetYaxis()->SetNdivisions(404);
+  hC->GetXaxis()->SetLabelSize(0.05);
+  hC->GetYaxis()->SetLabelSize(0.05);
+  hC->GetXaxis()->SetTitleSize(0.055);
+  hC->GetYaxis()->SetTitleSize(0.055);
+  hC->GetXaxis()->SetTitleOffset(1.0);
+  hC->GetYaxis()->SetTitleOffset(0.95);
   hC->Draw("E");
 
   TLine *fitLine = new TLine(hC->GetXaxis()->GetXmin(), val, hC->GetXaxis()->GetXmax(), val);
@@ -147,19 +153,20 @@ void ExecuteFit(TH1D* hA, TH1D* hB, void (*fcn)(int&, double*, double&, double*,
   fitLine->Draw("same");
 
   
-  TLatex l; l.SetNDC(); l.SetTextSize(0.04);
-  l.DrawLatex(0.13, 0.85, Form("%s", name.c_str()));
-  l.DrawLatex(0.13, 0.77, Form("%s", formula.c_str()));
-  l.DrawLatex(0.13, 0.25, Form("Fitted: %.3f #pm %.3f", val, err));
+  TLatex l; l.SetNDC(); l.SetTextSize(0.055);
+  l.DrawLatex(0.11, 0.85, Form("%s", name.c_str()));
+  l.DrawLatex(0.11, 0.75, Form("%s", formula.c_str()));
+  l.DrawLatex(0.11, 0.25, Form("Mean bin content: %.2f", hC->Integral()/hC->GetNbinsX()));
+  l.DrawLatex(0.11, 0.20, Form("Fitted: %.3f #pm %.3f", val, err));
   double prob = TMath::Prob(chi2, ndf);
+  l.SetTextSize(0.05);
   if(prob>0.001)
-    l.DrawLatex(0.13, 0.21, Form("#chi^{2}/NDF: %.2f/%d (P-value: %.1f%%)", chi2, ndf, prob*100));
+    l.DrawLatex(0.11, 0.16, Form("#chi^{2}/NDF: %.2f/%d (P-value: %.1f%%)", chi2, ndf, prob*100));
   else
-    l.DrawLatex(0.13, 0.21, Form("#chi^{2}/NDF: %.2f/%d (P-value: %.3e%%)", chi2, ndf, prob*100));
+    l.DrawLatex(0.11, 0.16, Form("#chi^{2}/NDF: %.2f/%d (P-value: %.3e%%)", chi2, ndf, prob*100));
   
-  l.SetTextSize(0.04);
-  l.DrawLatex(0.58, 0.84, Form("N_{hits}: %dM", (int)(hC->GetEntries()/1e6)));
-  l.DrawLatex(0.58, 0.78, Form("Mean bin content: %.2f", hC->Integral()/hC->GetNbinsX()));
+  l.SetTextSize(0.055);
+  l.DrawLatex(0.55, 0.84, Form("N_{hits}: %dM", (int)(hC->GetEntries()/1e6)));
 
   c->Print((saveName + ".png").c_str());
   //c->Print((saveName + ".pdf").c_str());
