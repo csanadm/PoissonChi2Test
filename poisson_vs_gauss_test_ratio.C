@@ -6,6 +6,7 @@
 #include "TLatex.h"
 #include "TStyle.h"
 #include "TVirtualFitter.h"
+#include "TLine.h"
 #include <iostream>
 #include <string>
 
@@ -127,22 +128,42 @@ void ExecuteFit(TH1D* hA, TH1D* hB, void (*fcn)(int&, double*, double&, double*,
   int ndf = hC->GetNbinsX() - 1;
 
   TCanvas *c = new TCanvas("c", "c", 800, 600);
-  hC->SetTitle(Form("%s: %s;Bin Index;Value", name.c_str(), formula.c_str()));
+  c->SetLeftMargin(0.10);
+  c->SetRightMargin(0.10);
+  c->SetBottomMargin(0.13);
+  c->SetTopMargin(0.08);
+  hC->SetTitle(";Bin Index;Value");
   hC->SetMinimum(0.0);
   hC->SetMaximum(2.5);
+  hC->SetLineColor(kAzure + 2);
+  hC->SetMarkerColor(kAzure + 2);
+  hC->GetXaxis()->SetNdivisions(5, 0, 0);
+  hC->GetYaxis()->SetNdivisions(404);
   hC->Draw("E");
 
+  TLine *fitLine = new TLine(hC->GetXaxis()->GetXmin(), val, hC->GetXaxis()->GetXmax(), val);
+  fitLine->SetLineColor(kRed + 1);
+  fitLine->SetLineWidth(2);
+  fitLine->Draw("same");
+
   
-  TLatex l; l.SetNDC(); l.SetTextSize(0.03);
-  l.DrawLatex(0.15, 0.85, Form("Method: %s", name.c_str()));
-  l.DrawLatex(0.15, 0.81, Form("Fitted: %.3f #pm %.3f", val, err));
+  TLatex l; l.SetNDC(); l.SetTextSize(0.04);
+  l.DrawLatex(0.13, 0.85, Form("%s", name.c_str()));
+  l.DrawLatex(0.13, 0.77, Form("%s", formula.c_str()));
+  l.DrawLatex(0.13, 0.25, Form("Fitted: %.3f #pm %.3f", val, err));
   double prob = TMath::Prob(chi2, ndf);
   if(prob>0.001)
-    l.DrawLatex(0.15, 0.77, Form("#chi^{2}/ndf: %.2f/%d (P: %.1f%%)", chi2, ndf, prob*100));
+    l.DrawLatex(0.13, 0.21, Form("#chi^{2}/NDF: %.2f/%d (P-value: %.1f%%)", chi2, ndf, prob*100));
   else
-    l.DrawLatex(0.15, 0.77, Form("#chi^{2}/ndf: %.2f/%d (P: %.3e%%)", chi2, ndf, prob*100));
+    l.DrawLatex(0.13, 0.21, Form("#chi^{2}/NDF: %.2f/%d (P-value: %.3e%%)", chi2, ndf, prob*100));
   
-  c->Print(saveName.c_str());
+  l.SetTextSize(0.04);
+  l.DrawLatex(0.58, 0.84, Form("N_{hits}: %dM", (int)(hC->GetEntries()/1e6)));
+  l.DrawLatex(0.58, 0.78, Form("Mean bin content: %.2f", hC->Integral()/hC->GetNbinsX()));
+
+  c->Print((saveName + ".png").c_str());
+  c->Print((saveName + ".pdf").c_str());
+  delete fitLine;
   delete c;
   cerr << "TABLE:\t| " << name << " | " << (int)(hA->GetEntries()/1e6) << "M | " << Form("%.3f±%.3f",val,err) << " | " << Form("%.2f",chi2) << " | " << Form("%.4f",chi2/ndf) << " | " << Form("%.2f%%",prob*100) << " |" << endl;
 }
@@ -167,16 +188,16 @@ void poisson_vs_gauss_test_ratio(int mean = 100)
   struct Method { string name; string formula; void (*fcn)(int&, double*, double&, double*, int); };
   Method list[] =
 	{
-    {"default",  "#chi^{2}_{i} = (A_{i} - F #upoint B_{i})^{2} / (A_{i} #upoint (1+A_{i}/B_{i}))",             DefaultFCN},
-    {"Pearson",  "#chi^{2}_{i} = (A_{i} - F #upoint B_{i})^{2} / (F #upoint B_{i} #upoint (1+A_{i}/B_{i}))",                 PearsonFCN},
-    {"Yates",    "#chi^{2}_{i} = (|A_{i} - F #upoint B_{i}|-0.5)^{2} / (A_{i} #upoint (1+A_{i}/B_{i}))",       YatesFCN},
-    {"YatesMod", "#chi^{2}_{i} = (|A_{i} - F #upoint B_{i}E|-0.5)^{2} / (F #upoint B_{i} #upoint (1+A_{i}/B_{i}))",           YatesPearsonFCN},
-    {"corr",     "#chi^{2}_{i} = (A_{i} - F #upoint B_{i})^{2} / (A_{i} #upoint (1+A_{i}/B_{i}) + 0.5)",       NagyCsanadFCN},
-    {"LL",       "#chi^{2}_{i} = (F #upoint B_{i} - A_{i} + A_{i} ln(A_{i}/(F #upoint B_{i})))", LikelihoodFCN}
+    {"Classical",  "#chi^{2}_{i} = #frac{(A_{i} - F #upoint B_{i})^{2}}{(A_{i} #upoint (1+A_{i}/B_{i}))}",             DefaultFCN},
+    {"Pearson",  "#chi^{2}_{i} = #frac{(A_{i} - F #upoint B_{i})^{2}}{(F #upoint B_{i} #upoint (1+A_{i}/B_{i}))}",                 PearsonFCN},
+    {"Yates",    "#chi^{2}_{i} = #frac{(A_{i} - F #upoint B_{i})^{2}}{(A_{i} #upoint (1+A_{i}/B_{i}))}",       YatesFCN},
+    {"Yates & Pearson", "#chi^{2}_{i} = #frac{(A_{i} - F #upoint B_{i})^{2}}{(F #upoint B_{i} #upoint (1+A_{i}/B_{i}))}",           YatesPearsonFCN},
+    {"Corrected",     "#chi^{2}_{i} = #frac{(A_{i} - F #upoint B_{i})^{2}}{(A_{i} #upoint (1+A_{i}/B_{i}) + 0.5)}",       NagyCsanadFCN},
+    {"LogLikelihood",       "#chi^{2}_{i} = 2 (F #upoint B_{i} - A_{i} + A_{i} ln(A_{i}/(F #upoint B_{i})))", LikelihoodFCN}
   };
 
   for (auto &m : list)
 	{
-    ExecuteFit(hA, hB, m.fcn, m.name, m.formula, "poisson_vs_gauss_test_ratio_" + to_string(hitsM) + "M_" + m.name + ".png");
+    ExecuteFit(hA, hB, m.fcn, m.name, m.formula, "poisson_vs_gauss_test_ratio_" + to_string(hitsM) + "M_" + m.name);
   }
 }

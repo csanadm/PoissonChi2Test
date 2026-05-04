@@ -4,6 +4,7 @@
 #include "TRandom.h"
 #include "TCanvas.h"
 #include "TLatex.h"
+#include "TLine.h"
 #include "TStyle.h"
 #include "TVirtualFitter.h"
 #include <iostream>
@@ -117,23 +118,45 @@ void ExecuteFit(TH1D* h, void (*fcn)(int&, double*, double&, double*, int),
   int ndf = h->GetNbinsX() - 1;
 
   TCanvas *c = new TCanvas("c", "c", 800, 600);
-  h->SetTitle(Form("%s: %s;Bin Index;Value", name.c_str(), formula.c_str()));
+  c->SetLeftMargin(0.10);
+  c->SetRightMargin(0.10);
+  c->SetBottomMargin(0.13);
+  c->SetTopMargin(0.08);
+  h->SetTitle(";Bin Index;Value");
   h->SetMinimum(0.0*startVal);
   h->SetMaximum(2.0*startVal);
   if(startVal==1.0) h->SetMaximum(2.5*startVal);
+  h->SetLineColor(kAzure + 2);
+  h->SetMarkerColor(kAzure + 2);
+  
+  h->GetXaxis()->SetNdivisions(5, 0, 0);
+  h->GetYaxis()->SetNdivisions(404);
+  
   h->Draw("E");
 
+  TLine *fitLine = new TLine(h->GetXaxis()->GetXmin(), val, h->GetXaxis()->GetXmax(), val);
+  fitLine->SetLineColor(kRed + 1);
+  fitLine->SetLineWidth(2);
+  fitLine->Draw("same");
+
   
-  TLatex l; l.SetNDC(); l.SetTextSize(0.03);
-  l.DrawLatex(0.15, 0.85, Form("Method: %s", name.c_str()));
-  l.DrawLatex(0.15, 0.81, Form("Fitted: %.3f #pm %.3f", val, err));
+  TLatex l; l.SetNDC(); l.SetTextSize(0.04);
+  l.DrawLatex(0.15, 0.85, Form("%s", name.c_str()));
+  l.DrawLatex(0.15, 0.77, Form("%s", formula.c_str()));
+  l.DrawLatex(0.15, 0.25, Form("Fitted: %.3f #pm %.3f", val, err));
   double prob = TMath::Prob(chi2, ndf);
   if(prob>0.001)
-    l.DrawLatex(0.15, 0.77, Form("#chi^{2}/ndf: %.2f/%d (P: %.1f%%)", chi2, ndf, prob*100));
+    l.DrawLatex(0.15, 0.21, Form("#chi^{2}/NDF: %.2f/%d (P-value: %.1f%%)", chi2, ndf, prob*100));
   else
-    l.DrawLatex(0.15, 0.77, Form("#chi^{2}/ndf: %.2f/%d (P: %.3e%%)", chi2, ndf, prob*100));
+    l.DrawLatex(0.15, 0.21, Form("#chi^{2}/NDF: %.2f/%d (P-value: %.3e%%)", chi2, ndf, prob*100));
+
+  l.SetTextSize(0.04);
+  l.DrawLatex(0.58, 0.84, Form("N_{hits}: %dM", (int)(h->GetEntries()/1e6)));
+  l.DrawLatex(0.58, 0.78, Form("Mean bin content: %.2f", h->Integral()/h->GetNbinsX()));
   
-  c->Print(saveName.c_str());
+  c->Print((saveName + ".png").c_str());
+  c->Print((saveName + ".pdf").c_str());
+  delete fitLine;
   delete c;
   cerr << "TABLE:\t| " << name << " | " << (int)(h->GetEntries()/1e6) << "M | " << (int)(h->GetEntries()/h->GetNbinsX()) << " | " << Form("%.3f±%.3f",val,err) << " | " << Form("%.2f",chi2) << " | " << Form("%.4f",chi2/ndf) << " | " << Form("%.2f%%",prob*100) << " |" << endl;
 }
@@ -156,16 +179,16 @@ void poisson_vs_gauss_test(int mean = 100)
   struct Method { string name; string formula; void (*fcn)(int&, double*, double&, double*, int); };
   Method list[] =
   {
-    {"default",  "#chi^{2}_{i} = (O_{i}-E)^{2} / O_{i}",             DefaultFCN},
-    {"Pearson",  "#chi^{2}_{i} = (O_{i}-E)^{2} / E",                 PearsonFCN},
-    {"Yates",    "#chi^{2}_{i} = (|O_{i}-E|-0.5)^{2} / O_{i}",       YatesFCN},
-    {"YatesMod", "#chi^{2}_{i} = (|O_{i}-E|-0.5)^{2} / E",           YatesPearsonFCN},
-    {"corr",     "#chi^{2}_{i} = (O_{i}-E)^{2} / (O_{i}+0.5)",       NagyCsanadFCN},
-    {"LL",       "#chi^{2}_{i} = 2 (E - O_{i} + O_{i} ln(O_{i}/E))", LikelihoodFCN}
+    {"Classical",  "#chi^{2}_{i} = #frac{(O_{i}-E)^{2}}{O_{i}}",             DefaultFCN},
+    {"Pearson",  "#chi^{2}_{i} = #frac{(O_{i}-E)^{2}}{E}",                 PearsonFCN},
+    {"Yates",    "#chi^{2}_{i} = #frac{(|O_{i}-E|-0.5)^{2}}{O_{i}}",       YatesFCN},
+    {"Yates & Pearson", "#chi^{2}_{i} = #frac{(|O_{i}-E|-0.5)^{2}}{E}",           YatesPearsonFCN},
+    {"Corrected",     "#chi^{2}_{i} = #frac{(O_{i}-E)^{2}}{O_{i}+0.5}",       NagyCsanadFCN},
+    {"LogLikelihood",       "#chi^{2}_{i} = 2 (E - O_{i} + O_{i} ln(O_{i}/E))", LikelihoodFCN}
   };
 
   for (auto &m : list)
   {
-    ExecuteFit(h, m.fcn, m.name, m.formula, "poisson_vs_gauss_test_" + to_string(hitsM) + "M_" + m.name + ".png", (double)mean);
+    ExecuteFit(h, m.fcn, m.name, m.formula, "poisson_vs_gauss_test_" + to_string(hitsM) + "M_" + m.name, (double)mean);
   }
 }
