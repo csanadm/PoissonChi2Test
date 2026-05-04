@@ -162,7 +162,7 @@ void ExecuteFit(TH1D* hA, TH1D* hB, void (*fcn)(int&, double*, double&, double*,
   l.DrawLatex(0.58, 0.78, Form("Mean bin content: %.2f", hC->Integral()/hC->GetNbinsX()));
 
   c->Print((saveName + ".png").c_str());
-  c->Print((saveName + ".pdf").c_str());
+  //c->Print((saveName + ".pdf").c_str());
   delete fitLine;
   delete c;
   cerr << "TABLE:\t| " << name << " | " << (int)(hA->GetEntries()/1e6) << "M | " << Form("%.3f±%.3f",val,err) << " | " << Form("%.2f",chi2) << " | " << Form("%.4f",chi2/ndf) << " | " << Form("%.2f%%",prob*100) << " |" << endl;
@@ -172,6 +172,7 @@ void ExecuteFit(TH1D* hA, TH1D* hB, void (*fcn)(int&, double*, double&, double*,
 void poisson_vs_gauss_test_ratio(int mean = 100)
 {
   gStyle->SetOptStat(0);
+  gStyle->SetImageScaling(2.0);
   int nbins = 4e5;
 		int hitsM = nbins*mean/1e6;
 
