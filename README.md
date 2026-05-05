@@ -199,7 +199,7 @@ The same table for fitting a ratio of histograms:
 <img height="250" alt="poisson_vs_gauss_test_ratio_80M_LogLikelihood" src="https://github.com/user-attachments/assets/0f5768a4-d1ce-4c1c-be08-1c09aa3e2c47" />
 <img height="250" alt="poisson_vs_gauss_test_ratio_160M_LogLikelihood" src="https://github.com/user-attachments/assets/3c5ea285-4c24-489c-b32e-bfc56b7886ee" />
 
-### Likelihood
+### CF Likelihood
 
 <img height="250" alt="poisson_vs_gauss_test_ratio_40M_CFL" src="https://github.com/user-attachments/assets/5287fb9d-b9ea-4ab0-84b0-4aba1a0772bd" />
 <img height="250" alt="poisson_vs_gauss_test_ratio_80M_CFL" src="https://github.com/user-attachments/assets/5e0300be-76c3-4b58-add8-3f9c880b22a2" />
