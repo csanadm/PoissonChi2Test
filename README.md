@@ -56,10 +56,14 @@ For fitting a ratio, this becomes:<br>
 $\chi^2_i = \frac{(A_{i}-F_{i}\cdot B_{i})^{2}}{A_{i}\cdot(1-A_i/B_i)+0.5}$
 
 ### Log likelihood
-Finally, to remedy the problems associated with assuming a Gaussian uncertainty distribution, log likelihood optimization can be utilized. In this case, one defines chisquare as:<br>
+To remedy the problems associated with assuming a Gaussian uncertainty distribution, log likelihood optimization can be utilized. In this case, one defines chisquare as:<br>
 $\chi^2_i = 2\left[ E_{i} - O_{i} + O_{i} \log(O_{i}/E_{i}) \right]$<br>
 For fitting a ratio:<br>
 $\chi^2_i = \left[ F_{i}\cdot B_i - A_{i} + A_{i} \log(A_{i}/(F_i\cdot B_{i})) \right]$
+
+### E802 likelihood
+Finally, for fitting a ratio, an additional definition is tested, based on nucl-ex/0204001 from the E802 Collaboration:<br>
+$\chi^2_i = -2 \left[ A_i\cdot \log\left(\frac{C_i (A_i + B_i)}{A_i (C_i + 1)}\right) + B_i\cdot \log\left(\frac{A_i + B_i}{B_i (C_i + 1)}\right) \right]$
 
 
 ## Testing the $\chi^2$ options
