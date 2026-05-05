@@ -100,6 +100,21 @@ void LikelihoodFCN(int &npar, double *gin, double &f, double *par, int iflag)
   f = chi2;
 }
 
+// --- CF Likelihood  ---
+void CFLikelihoodFCN(int &npar, double *gin, double &f, double *par, int iflag)
+{
+  double chi2 = 0;
+  double C = par[0];
+  for (int i = 1; i <= gHistA->GetNbinsX(); i++)
+  {
+    double A = gHistA->GetBinContent(i);
+    double B = gHistB->GetBinContent(i);
+
+    if (A > 0 && B > 0 && C > 0) chi2 += -2.0 * ( A * log((C * (A+B)) / (A * (C + 1.0))) + B * log((A+B) / (B * (C + 1.0))) );
+  }
+  f = chi2;
+}
+
 // --- The "Neater" Runner Function ---
 void ExecuteFit(TH1D* hA, TH1D* hB, void (*fcn)(int&, double*, double&, double*, int), 
         string name, string formula, string saveName)
@@ -156,8 +171,8 @@ void ExecuteFit(TH1D* hA, TH1D* hB, void (*fcn)(int&, double*, double&, double*,
   TLatex l; l.SetNDC(); l.SetTextSize(0.055);
   l.DrawLatex(0.11, 0.85, Form("%s", name.c_str()));
   l.DrawLatex(0.11, 0.75, Form("%s", formula.c_str()));
-  l.DrawLatex(0.11, 0.25, Form("Mean bin content: %.2f", hC->Integral()/hC->GetNbinsX()));
-  l.DrawLatex(0.11, 0.20, Form("Fitted: %.3f #pm %.3f", val, err));
+  l.DrawLatex(0.11, 0.25, Form("Expected bin content: %.3f", hA->Integral()*1.0/hB->Integral()));
+  l.DrawLatex(0.11, 0.20, Form("Fitted: %.4f #pm %.4f", val, err));
   double prob = TMath::Prob(chi2, ndf);
   l.SetTextSize(0.05);
   if(prob>0.001)
@@ -172,7 +187,7 @@ void ExecuteFit(TH1D* hA, TH1D* hB, void (*fcn)(int&, double*, double&, double*,
   //c->Print((saveName + ".pdf").c_str());
   delete fitLine;
   delete c;
-  cerr << "TABLE:\t| " << name << " | " << (int)(hA->GetEntries()/1e6) << "M | " << Form("%.3f±%.3f",val,err) << " | " << Form("%.2f",chi2) << " | " << Form("%.4f",chi2/ndf) << " | " << Form("%.2f%%",prob*100) << " |" << endl;
+  cerr << "TABLE:\t| " << name << " | " << (int)(hA->GetEntries()/1e6) << "M | " << Form("%.4f±%.4f",val,err) << " | " << Form("%.2f",chi2) << " | " << Form("%.4f",chi2/ndf) << " | " << Form("%.2f%%",prob*100) << " |" << endl;
 }
 
 // --- Main Test Function ---
@@ -196,12 +211,13 @@ void poisson_vs_gauss_test_ratio(int mean = 100)
   struct Method { string name; string formula; void (*fcn)(int&, double*, double&, double*, int); };
   Method list[] =
 	{
-    {"Classical",  "#chi^{2}_{i} = #frac{(A_{i} - F #upoint B_{i})^{2}}{(A_{i} #upoint (1+A_{i}/B_{i}))}",             DefaultFCN},
-    {"Pearson",  "#chi^{2}_{i} = #frac{(A_{i} - F #upoint B_{i})^{2}}{(F #upoint B_{i} #upoint (1+A_{i}/B_{i}))}",                 PearsonFCN},
-    {"Yates",    "#chi^{2}_{i} = #frac{(A_{i} - F #upoint B_{i})^{2}}{(A_{i} #upoint (1+A_{i}/B_{i}))}",       YatesFCN},
-    {"Yates & Pearson", "#chi^{2}_{i} = #frac{(A_{i} - F #upoint B_{i})^{2}}{(F #upoint B_{i} #upoint (1+A_{i}/B_{i}))}",           YatesPearsonFCN},
-    {"Corrected",     "#chi^{2}_{i} = #frac{(A_{i} - F #upoint B_{i})^{2}}{(A_{i} #upoint (1+A_{i}/B_{i}) + 0.5)}",       NagyCsanadFCN},
-    {"LogLikelihood",       "#chi^{2}_{i} = 2 (F #upoint B_{i} - A_{i} + A_{i} ln(A_{i}/(F #upoint B_{i})))", LikelihoodFCN}
+    {"default",  "#chi^{2}_{i} = (A_{i} - F #upoint B_{i})^{2} / (A_{i} #upoint (1+A_{i}/B_{i}))",                                  DefaultFCN},
+    {"Pearson",  "#chi^{2}_{i} = (A_{i} - F #upoint B_{i})^{2} / (F #upoint B_{i} #upoint (1+A_{i}/B_{i}))",                        PearsonFCN},
+    {"Yates",    "#chi^{2}_{i} = (|A_{i} - F #upoint B_{i}|-0.5)^{2} / (A_{i} #upoint (1+A_{i}/B_{i}))",                            YatesFCN},
+    {"YatesMod", "#chi^{2}_{i} = (|A_{i} - F #upoint B_{i}E|-0.5)^{2} / (F #upoint B_{i} #upoint (1+A_{i}/B_{i}))",                 YatesPearsonFCN},
+    {"corr",     "#chi^{2}_{i} = (A_{i} - F #upoint B_{i})^{2} / (A_{i} #upoint (1+A_{i}/B_{i}) + 0.5)",                            NagyCsanadFCN},
+    {"LL",       "#chi^{2}_{i} = (F #upoint B_{i} - A_{i} + A_{i} ln(A_{i}/(F #upoint B_{i})))",                                    LikelihoodFCN},
+    {"CFL",      "#chi^{2}_{i} = -2 #left[A ln#left( #frac{C(A+B)}{A(C+1)} #right) + B ln#left( #frac{A+B}{B(C+1)} #right)#right]", CFLikelihoodFCN}
   };
 
   for (auto &m : list)
