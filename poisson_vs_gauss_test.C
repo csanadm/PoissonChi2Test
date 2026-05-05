@@ -187,12 +187,12 @@ void poisson_vs_gauss_test(int mean = 100)
   struct Method { string name; string formula; void (*fcn)(int&, double*, double&, double*, int); };
   Method list[] =
   {
-    {"Classical",  "#chi^{2}_{i} = #frac{(O_{i}-E)^{2}}{O_{i}}",             DefaultFCN},
-    {"Pearson",  "#chi^{2}_{i} = #frac{(O_{i}-E)^{2}}{E}",                 PearsonFCN},
-    {"Yates",    "#chi^{2}_{i} = #frac{(|O_{i}-E|-0.5)^{2}}{O_{i}}",       YatesFCN},
-    {"Yates & Pearson", "#chi^{2}_{i} = #frac{(|O_{i}-E|-0.5)^{2}}{E}",           YatesPearsonFCN},
-    {"Corrected",     "#chi^{2}_{i} = #frac{(O_{i}-E)^{2}}{O_{i}+0.5}",       NagyCsanadFCN},
-    {"LogLikelihood",       "#chi^{2}_{i} = 2 (E - O_{i} + O_{i} ln(O_{i}/E))", LikelihoodFCN}
+    {"Classical",      "#chi^{2}_{i} = #frac{(O_{i}-E)^{2}}{O_{i}}",      DefaultFCN},
+    {"Pearson",       "#chi^{2}_{i} = #frac{(O_{i}-E)^{2}}{E}",           PearsonFCN},
+    {"Yates",         "#chi^{2}_{i} = #frac{(|O_{i}-E|-0.5)^{2}}{O_{i}}", YatesFCN},
+    {"Yates-Pearson", "#chi^{2}_{i} = #frac{(|O_{i}-E|-0.5)^{2}}{E}",     YatesPearsonFCN},
+    {"Corrected",     "#chi^{2}_{i} = #frac{(O_{i}-E)^{2}}{O_{i}+0.5}",   NagyCsanadFCN},
+    {"LogLikelihood", "#chi^{2}_{i} = 2 (E - O_{i} + O_{i} ln(O_{i}/E))", LikelihoodFCN}
   };
 
   for (auto &m : list)
