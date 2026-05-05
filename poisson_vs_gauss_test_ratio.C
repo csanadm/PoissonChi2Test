@@ -211,13 +211,13 @@ void poisson_vs_gauss_test_ratio(int mean = 100)
   struct Method { string name; string formula; void (*fcn)(int&, double*, double&, double*, int); };
   Method list[] =
 	{
-    {"default",  "#chi^{2}_{i} = (A_{i} - F #upoint B_{i})^{2} / (A_{i} #upoint (1+A_{i}/B_{i}))",                                  DefaultFCN},
-    {"Pearson",  "#chi^{2}_{i} = (A_{i} - F #upoint B_{i})^{2} / (F #upoint B_{i} #upoint (1+A_{i}/B_{i}))",                        PearsonFCN},
-    {"Yates",    "#chi^{2}_{i} = (|A_{i} - F #upoint B_{i}|-0.5)^{2} / (A_{i} #upoint (1+A_{i}/B_{i}))",                            YatesFCN},
-    {"YatesMod", "#chi^{2}_{i} = (|A_{i} - F #upoint B_{i}E|-0.5)^{2} / (F #upoint B_{i} #upoint (1+A_{i}/B_{i}))",                 YatesPearsonFCN},
-    {"corr",     "#chi^{2}_{i} = (A_{i} - F #upoint B_{i})^{2} / (A_{i} #upoint (1+A_{i}/B_{i}) + 0.5)",                            NagyCsanadFCN},
-    {"LL",       "#chi^{2}_{i} = (F #upoint B_{i} - A_{i} + A_{i} ln(A_{i}/(F #upoint B_{i})))",                                    LikelihoodFCN},
-    {"CFL",      "#chi^{2}_{i} = -2 #left[A ln#left( #frac{C(A+B)}{A(C+1)} #right) + B ln#left( #frac{A+B}{B(C+1)} #right)#right]", CFLikelihoodFCN}
+    {"Classical",     "#chi^{2}_{i} = (A_{i} - F #upoint B_{i})^{2} / (A_{i} #upoint (1+A_{i}/B_{i}))",                                  DefaultFCN},
+    {"Pearson",       "#chi^{2}_{i} = (A_{i} - F #upoint B_{i})^{2} / (F #upoint B_{i} #upoint (1+A_{i}/B_{i}))",                        PearsonFCN},
+    {"Yates",         "#chi^{2}_{i} = (|A_{i} - F #upoint B_{i}|-0.5)^{2} / (A_{i} #upoint (1+A_{i}/B_{i}))",                            YatesFCN},
+    {"Yates-Pearson", "#chi^{2}_{i} = (|A_{i} - F #upoint B_{i}E|-0.5)^{2} / (F #upoint B_{i} #upoint (1+A_{i}/B_{i}))",                 YatesPearsonFCN},
+    {"Corrected",     "#chi^{2}_{i} = (A_{i} - F #upoint B_{i})^{2} / (A_{i} #upoint (1+A_{i}/B_{i}) + 0.5)",                            NagyCsanadFCN},
+    {"LogLikelihood", "#chi^{2}_{i} = (F #upoint B_{i} - A_{i} + A_{i} ln(A_{i}/(F #upoint B_{i})))",                                    LikelihoodFCN},
+    {"CFLikelihood",  "#chi^{2}_{i} = -2 #left[A ln#left( #frac{C(A+B)}{A(C+1)} #right) + B ln#left( #frac{A+B}{B(C+1)} #right)#right]", CFLikelihoodFCN}
   };
 
   for (auto &m : list)
