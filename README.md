@@ -3,6 +3,7 @@
 ## File contents
 - [**poisson_vs_gauss_test.C**](https://github.com/csanadm/PoissonChi2Test/blob/main/poisson_vs_gauss_test.C): Fitting a histogram with various $\chi^2$ definitions
 - [**poisson_vs_gauss_test_ratio.C**](https://github.com/csanadm/PoissonChi2Test/blob/main/poisson_vs_gauss_test_ratio.C): Fitting a ratio of histograms with various $\chi^2$ definitions
+- [**poisson_chi2_summary.C**](https://github.com/csanadm/PoissonChi2Test/blob/main/poisson_chi2_summary.C): Creating a summary plot from the individual simulation results
 
 ## Introduction
 This page shows a test of Poisson uncertainties and $\chi^2$ definitions.
