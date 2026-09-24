@@ -124,6 +124,11 @@ The same table for fitting a ratio of histograms:
 |                      | 160M | 1.0000±0.0001 | 400069.11 | 1.0002 | 46.85% |
 
 
+## Summary plot
+
+<img width="532" alt="poisson_chi2_summary" src="https://github.com/user-attachments/assets/95b52e4c-6b09-4381-bd43-38e31a647e2f" />
+
+
 ## Plots for histogram fitting
 
 ### Default
